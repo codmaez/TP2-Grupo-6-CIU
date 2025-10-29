@@ -3,8 +3,9 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from '
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 interface User {
-    username: string;
-    email?: string;
+    id: number;
+    nickName: string;
+    email: string;
 }
 
 export interface AuthContextType {
@@ -23,9 +24,10 @@ export function AuthProvider({ children }: AuthProviderProps){
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const user: string | null = localStorage.getItem('user');
-        if(user){
-            setUser((prev) => ({ ...prev, username: user }));
+        const storedUser: string | null = localStorage.getItem('user');
+        if(storedUser){
+            const parsedUser: User = JSON.parse(storedUser);
+            setUser(parsedUser);
         }
         setLoading(false);
     }, [])
@@ -33,12 +35,13 @@ export function AuthProvider({ children }: AuthProviderProps){
     const login = async (username: string, password: string): Promise<void> => {
         try{
             const res = await fetch('http://localhost:3001/users');
-            const users: string[] = await res.json();
-            if (!users.includes('username')){
+            const users: User[] = await res.json();
+            const userAccount: User | undefined = users.find(user => user.nickName === username)
+            if (!userAccount){
                 alert('El usuario no existe');
             } else if (password === '1234'){
-                setUser((prev) => ({ ...prev, username }));
-                localStorage.setItem('user', username);
+                setUser(userAccount);
+                localStorage.setItem('user', JSON.stringify(userAccount));
             } else{
                 alert('Contraseña incorrecta');
             }
