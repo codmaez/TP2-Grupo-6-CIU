@@ -23,7 +23,7 @@ export default function LoginPage(){
 
     return(
         <div className='container-fluid bg-primary vh-100 d-flex'>
-            <div className='row flex-column flex-md-row'>
+            <div className='row flex-column flex-md-row vw-100'>
                 <div className='col align-items-center justify-content-center d-none d-md-flex'>
                     <img src={image_banner} alt='banner' className='img-fluid' />
                 </div>
