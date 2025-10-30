@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from '
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-interface User {
+export interface User {
     id: number;
     nickName: string;
     email: string;
@@ -47,9 +47,9 @@ export function AuthProvider({ children }: AuthProviderProps){
             }
         } catch(err: unknown){
             if (err instanceof Error){
-                alert(`Ocurrio un error: ${err.message}`);
+                alert(`Ocurrio un error al iniciar sesión: ${err.message}`);
             } else{
-                alert('Error desconocido')
+                alert('Error desconocido al iniciar sesión.')
             }
         }
     }
