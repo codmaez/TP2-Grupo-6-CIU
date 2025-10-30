@@ -1,7 +1,8 @@
-import profile from '../assets/blank-profile.png';
+import profilePic from '../assets/blank-profile.png';
 import { useEffect, useState } from "react";
 import type { User } from "../context/AuthContext";
 import { Link } from 'react-router-dom';
+import PostComments from './PostComments';
 
 export interface PostType {
     id: number;
@@ -41,10 +42,11 @@ interface PostProps {
 export default function Post({ post }: PostProps){
     const [postImgs, setPostImgs] = useState<PostImage[]>([]);
     const [imgMain, setImgMain] = useState<number>(0);
+    const [showCommentBox, setShowCommentBox] = useState<boolean>(false);
 
     const getImages = async () => {
         try{
-            const res = await fetch(`http://rpi-codmaez.ddns.net:3001/postimages/post/${post.id}`);
+            const res = await fetch(`http://localhost:3001/postimages/post/${post.id}`);
             const images: PostImage[] = await res.json();
             setPostImgs(images);
         } catch(err: unknown){
@@ -63,7 +65,7 @@ export default function Post({ post }: PostProps){
     return(
         <div className="container-fluid bg-white rounded border border-secundary p-3 m-1 w-100 shadow">
             <div className="d-flex">
-                <img className="border rounded-circle" style={{ width: '50px', height: '50px', maxWidth: '50px', maxHeight: '50px' }} src={profile} />
+                <img className="border rounded-circle" style={{ width: '50px', height: '50px', maxWidth: '50px', maxHeight: '50px' }} src={profilePic} />
                 <div className="ms-2 my-auto">
                     <div>Publicado por <Link to={`/profile?id=${post.UserId}`}>{ post.User.nickName.charAt(0).toUpperCase() + post.User.nickName.slice(1) }</Link></div>
                     <div className="text-muted" style={{ fontSize: '70%' }}>{ `${ new Date(post.createdAt).toLocaleString('es-AR') }hs` }</div>
@@ -99,15 +101,17 @@ export default function Post({ post }: PostProps){
                     ))
                 }
             </div>
-            
+            {/* Acciones */}
             <div className='container-fluid d-flex justify-content-between mt-2'>
-                <button className="btn w-100 mx-1" onClick={() => {}}>
+                <button className="btn w-100 mx-1" onClick={() => setShowCommentBox(!showCommentBox)}>
                     <i className="bi bi-chat me-1"/>Comentar
                 </button>
                 <button className="btn w-100 mx-1" onClick={() => {}}>
                     <i className="bi bi-box-arrow-up-right me-1"/>Ver más
                 </button>
             </div>
+            {/* Comentarios */}
+            <PostComments post_id={post.id} show_comment_box={showCommentBox} />
         </div>
     )
 }
