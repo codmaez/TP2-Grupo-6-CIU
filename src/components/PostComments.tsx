@@ -71,9 +71,9 @@ export default function PostComments({ post_id, show_comment_box }: CommentProps
     return(
         <div className='mt-2'>
             <div className={`${show_comment_box ? 'd-flex' : 'd-none'} position-relative`}>
-                <input className='rounded border border-secondary w-100 position-relative' placeholder='Escribir un comentario...' onChange={(e) => setComment(e.target.value)} value={comment}/>
-                <button className='btn border-0 position-absolute' style={{ right: '.5rem', padding: '.1rem' }} onClick={() => sendComment()}>
-                    <i className='bi bi-arrow-right-circle-fill text-primary' />
+                <input className='rounded border border-secondary w-100 position-relative p-2 mb-2 form-control shadow-none' placeholder='Escribir un comentario...' onChange={(e) => setComment(e.target.value)} value={comment}/>
+                <button className='btn border-0 position-absolute pe-0 p-md-0' style={{ right: '.5rem' }} onClick={() => sendComment()}>
+                    <i className='bi bi-arrow-right-circle-fill text-primary fs-3'/>
                 </button>
             </div>
             <div className='my-2'>
