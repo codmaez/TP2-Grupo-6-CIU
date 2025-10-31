@@ -61,7 +61,7 @@ export default function PostGallery({ postId, detailed }: PostGalleryProps){
                     </div>
                 :
                     <div className='d-flex justify-content-center position-relative w-100 py-2'>
-                        <button className='btn border-0 position-absolute top-50 start-0 translate-middle-y fs-1 ms-3' disabled={imgMain == 0} onClick={() => setImgMain(imgMain - 1)}>
+                        <button className={`btn border-0 position-absolute top-50 start-0 translate-middle-y fs-1 ms-3 ${imgMain == 0 ? 'd-none' : ''}`} onClick={() => setImgMain(imgMain - 1)} title="Ver anterior">
                             <i className='bi bi-arrow-left-circle-fill text-gray' />
                         </button>
                         <img
@@ -69,7 +69,7 @@ export default function PostGallery({ postId, detailed }: PostGalleryProps){
                             className={'w-100 p-1 border rounded border-secondary'}
                             style={{ objectFit: 'contain', maxHeight: '70dvh' }}
                         />
-                        <button className='btn border-0 position-absolute top-50 end-0 translate-middle-y fs-1 me-3' disabled={imgMain == postImgs.length -1} onClick={() => setImgMain(imgMain + 1)}>
+                        <button className={`btn border-0 position-absolute top-50 end-0 translate-middle-y fs-1 me-3 ${imgMain == postImgs.length -1 ? 'd-none' : ''}`} onClick={() => setImgMain(imgMain + 1)} title="Ver siguiente">
                             <i className='bi bi-arrow-right-circle-fill text-gray' />
                         </button>
                     </div>
