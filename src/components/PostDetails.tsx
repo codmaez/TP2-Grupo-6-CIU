@@ -2,7 +2,7 @@ import { useParams, type Params } from "react-router-dom";
 import Post, { type PostType } from "./Post";
 import { useEffect, useState } from "react";
 
-export default function PostDetalle(){
+export default function PostDetails(){
     const { id } = useParams<Params>();
     const [post, setPost] = useState<PostType>();
 

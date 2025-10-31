@@ -8,7 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./pages/ProfilePage";
 import Home from "./pages/HomePage";
 import Register from "./pages/RegisterPage";
-import PostDetalle from './components/PostDetalle';
+import PostDetails from './components/PostDetails';
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
                             <Profile />
                         </PrivateRoute>
                     } />
-                    <Route path="/post/:id" element={<PostDetalle />} />
+                    <Route path="/post/:id" element={<PostDetails />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
