@@ -1,7 +1,7 @@
 import profilePic from '../assets/blank-profile.png';
 import { useEffect, useState } from "react";
 import type { User } from "../context/AuthContext";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PostComments from './PostComments';
 
 export interface PostType {
@@ -43,6 +43,7 @@ export default function Post({ post }: PostProps){
     const [postImgs, setPostImgs] = useState<PostImage[]>([]);
     const [imgMain, setImgMain] = useState<number>(0);
     const [showCommentBox, setShowCommentBox] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const getImages = async () => {
         try{
@@ -67,7 +68,7 @@ export default function Post({ post }: PostProps){
             <div className="d-flex">
                 <img className="border rounded-circle" style={{ width: '50px', height: '50px', maxWidth: '50px', maxHeight: '50px' }} src={profilePic} />
                 <div className="ms-2 my-auto">
-                    <div>Publicado por <Link to={`/profile?id=${post.UserId}`}>{ post.User.nickName.charAt(0).toUpperCase() + post.User.nickName.slice(1) }</Link></div>
+                    <div>Publicado por <Link to={`/perfil/${post.UserId}`}>{ post.User.nickName.charAt(0).toUpperCase() + post.User.nickName.slice(1) }</Link></div>
                     <div className="text-muted" style={{ fontSize: '70%' }}>{ `${ new Date(post.createdAt).toLocaleString('es-AR') }hs` }</div>
                 </div>
             </div>
@@ -106,7 +107,7 @@ export default function Post({ post }: PostProps){
                 <button className="btn w-100 mx-1" onClick={() => setShowCommentBox(!showCommentBox)}>
                     <i className="bi bi-chat me-1"/>Comentar
                 </button>
-                <button className="btn w-100 mx-1" onClick={() => {}}>
+                <button className="btn w-100 mx-1" onClick={() => navigate(`/post/${post.id}`)}>
                     <i className="bi bi-box-arrow-up-right me-1"/>Ver más
                 </button>
             </div>
