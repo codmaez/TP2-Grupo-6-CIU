@@ -94,6 +94,7 @@ export default function PostComments({ post_id, show_comment_box }: CommentProps
                     ))
                 }
             </div>
+            <p className='mb-0 text-muted' style={{ fontSize: '.7rem' }}>{postComments.length} {postComments.length > 1 ? 'comentarios visibles.' : 'comentario visible.'}</p>
         </div>
     )
 }
