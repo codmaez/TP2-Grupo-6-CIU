@@ -38,7 +38,7 @@ export default function PostComments({ post_id, show_comment_box }: CommentProps
 
     const sendComment = async() => {
         try{
-            const res = await fetch('http://localhost.net:3001/comments', {
+            const res = await fetch('http://localhost:3001/comments', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
