@@ -1,0 +1,557 @@
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    margin: 0;
+    padding: 0;
+    background-color: #f0f5fa; 
+    color: #333;
+}
+
+
+.profileLayout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f0f5fa;
+}
+
+
+.profileFeed {
+    flex: 1; /* Ocupa el espacio restante */
+    max-width: 950px; /* Ancho máximo  */
+    margin: 20px auto; 
+    padding: 20px;
+    background-color: #fff; 
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    height: fit-content; 
+    min-height: calc(100vh - 40px);
+}
+
+/* CABECERA DEL PERFIL  */
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e6ecf0; 
+}
+
+/* Foto de perfil */
+.profileAvatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 30px;
+    border: 4px solid #1da1f2; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    display: block; 
+    object-fit: cover; /* Evita que la imagen se deforme */
+}
+
+/* Información de texto (NickName, Email, etc.) */
+.profileInfo {
+    flex: 1;
+}
+.profileNickName {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #003366; 
+}
+.profileEmail {
+    font-size: 1.1em;
+    color: #555;
+    margin: 0;
+}
+.profileMeta {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 10px;
+}
+
+
+/* Los botones "Publicaciones" y "Fotos" */
+.profileFilters {
+    display: flex;
+    border-bottom: 1px solid #e6ecf0; 
+    margin-top: 20px;
+}
+.filterButton {
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 3px solid transparent; 
+}
+.filterButton:hover {
+    background-color: #e8f5fe; 
+}
+/* Estilo del botón que está seleccionado */
+.filterActive {
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #1da1f2; 
+    border-bottom: 3px solid #1da1f2;
+}
+
+
+
+.postList {
+    display: flex;
+    flex-direction: column; 
+    gap: 0; 
+    margin-top: 20px; 
+}
+
+.postCard {
+    display: flex;
+    flex-direction: column; 
+    padding: 16px;
+    border: 1px solid #e6ecf0;       
+    border-radius: 8px;              
+    margin-bottom: 15px;             
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); 
+    transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative; 
+}
+.postCard:last-child {
+    margin-bottom: 0; 
+}
+.postCard:hover {
+    background-color: #f8fbff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04); 
+}
+
+/* Estilo que se añade  al destacar */
+.postCard-highlighted {
+    border-color: #ffac33; /* Borde dorado */
+    background-color: #fffaf0; 
+    box-shadow: 0 4px 20px rgba(255, 172, 51, 0.4); /* Sombra dorada */
+    animation: highlight-pop-in 0.3s ease-out; /* Animación */
+}
+
+/* Estilo para cortar el texto largo con "..." */
+.postDescription-truncated {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+    /* Para cortrar el texto en .. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 15px; 
+}
+
+
+.postImage {
+    width: 100%;
+    height: auto; 
+    max-height: 400px; 
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px; 
+    border: 1px solid #e6ecf0; 
+}
+
+
+/* Contenedor de "Like", "Comentar", "Destacar", "Ver más" */
+.postActions {
+    display: flex;
+    justify-content: space-around; 
+    padding: 10px 0; 
+    border-top: 1px solid #f0f5fa; 
+}
+.actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555; 
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+    transition: color 0.2s;
+    text-decoration: none; 
+    flex: 1; 
+    justify-content: center;
+}
+.actionButton i {
+    font-size: 1.1rem; 
+}
+/* Hover genérico (se pone azul) */
+.actionButton:hover {
+    color: #1da1f2; 
+}
+
+/* Estilo para el botón "Like" cuando está activo */
+.likeButton.liked {
+    color: #e0245e; 
+}
+.likeButton.liked i {
+    color: #e0245e;
+    animation: like-pop 0.3s ease; /* Animación de "pop" */
+}
+.likeButton:hover {
+    color: #e0245e;
+}
+
+/* Estilo para el botón "Destacar" cuando está activo */
+.highlightButton.highlighted {
+    color: #ffac33; 
+}
+.highlightButton.highlighted i {
+    color: #ffac33;
+    animation: like-pop 0.3s ease; 
+}
+.highlightButton:hover {
+    color: #ffac33; 
+}
+
+
+
+/* Muestra los primeros 2 comentarios debajo de los botones */
+.commentPreviewList {
+    margin: 10px 0 0 0; 
+    padding-left: 10px;
+    border-left: 2px solid #e6ecf0;
+}
+.commentPreviewItem {
+    font-size: 0.9em;
+    color: #555;
+    /* Corta comentarios largos con "..." */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.commentPreviewItem strong {
+    color: #333;
+}
+.commentPreviewItem span {
+    margin-left: 5px;
+}
+
+/* Contenedor para el modo "Fotos" */
+.FotosGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 8px; /* Espacio entre fotos */
+    margin-top: 20px; 
+    padding: 0; 
+}
+
+.gridPhotoContainer {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Fuerza una relación de aspecto 1:1 (cuadrado) */
+    overflow: hidden;
+    cursor: pointer;
+    border: none; 
+    background-color: transparent; 
+    display: block; 
+}
+/* La imagen dentro de la grilla */
+.gridPhoto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Rellena el cuadrado sin deformarse */
+    display: block;
+    transition: transform 0.2s, filter 0.2s;
+    border-radius: 4px; 
+}
+/* Efecto de zoom y oscuridad al pasar el mouse */
+.gridPhotoContainer:hover .gridPhoto {
+    transform: scale(1.05); 
+    filter: brightness(80%); 
+}
+/* Capa oscura que aparece al pasar el mouse */
+.gridPhotoOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    opacity: 0; 
+    transition: opacity 0.2s;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 4px;
+}
+.gridPhotoContainer:hover .gridPhotoOverlay {
+    opacity: 1; /* Se muestra en hover */
+}
+.gridPhotoOverlay i {
+    margin-right: 5px;
+}
+.gridPhotoLikeCount, .gridPhotoCommentCount {
+    display: flex;
+    align-items: center;
+}
+/* Para el mensaje "No hay fotos" (ocupa toda la grilla) */
+.grid-full-width {
+    grid-column: 1 / -1; 
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+
+/* Fondo oscuro semitransparente */
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Por encima de todo */
+    
+    /* Animación de entrada */
+    animation: modalFadeIn 0.3s ease;
+}
+/* Contenido de la ventana */
+.modalContent {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 700px; 
+    max-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    
+    /* Animación de entrada */
+    animation: modalSlideIn 0.3s ease;
+}
+
+/* Estilos para las animaciones de CIERRE */
+.modalBackdrop.closing {
+    animation: modalFadeOut 0.3s ease forwards;
+}
+.modalContent.closing {
+    animation: modalSlideOut 0.3s ease forwards;
+}
+
+
+/* Secciones internas del modal */
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e6ecf0;
+}
+.modalHeader h3 {
+    margin: 0;
+    font-weight: 600;
+    color: #003366;
+}
+.modalCloseButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.modalCloseButton:hover {
+    color: #111;
+}
+/* Cuerpo del modal (con scroll) */
+.modalBody {
+    padding: 1.5rem;
+    overflow-y: auto; 
+}
+.modalPostImage {
+    width: 100%;
+    max-height: 500px; 
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+.modalPostDescription {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #333;
+    white-space: pre-wrap; /* Respeta los saltos de línea */
+}
+.modalCommentList {
+    margin-top: 1rem;
+}
+.commentItem {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f5fa;
+}
+.commentItem:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.commentItem strong {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 4px;
+}
+.commentItem p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+/* Pie del modal (para escribir comentario) */
+.modalFooter {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e6ecf0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .profileLayout {
+        flex-direction: column; 
+    }
+    
+    .profileFeed {
+        padding: 15px;
+        margin: 0; 
+        border-radius: 0; 
+        min-height: auto;
+    }
+    .profileHeader {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .profileAvatar {
+        width: 100px;
+        height: 100px;
+        margin-right: 0; 
+        margin-bottom: 15px;
+    }
+
+    .profileNickName {
+        font-size: 1.8em;
+    }
+    .profileFilters {
+        justify-content: space-around; 
+        padding: 0;
+    }
+    .filterButton, .filterActive {
+        flex: 1; 
+        text-align: center;
+        padding: 12px 10px;
+    }
+
+    .actionButton span {
+        display: none;
+    }
+    .postActions {
+        justify-content: space-around;
+    }
+
+ 
+    .fotosGrid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 4px; 
+    }
+
+
+    .modalContent {
+        width: 95%;
+        max-height: 95vh;
+    }
+    .modalBody {
+        padding: 1rem;
+    }
+    .modalHeader {
+        padding: 1rem;
+    }
+}
+
+
+/*ANIMACIONES*/
+
+@keyframes like-pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3) rotate(-15deg); 
+    }
+    100% {
+        transform: scale(1) rotate(0deg); 
+    }
+}
+
+/* Animación de "pop-in" para Tarjeta Destacada */
+@keyframes highlight-pop-in {
+    0% { 
+        transform: scale(0.98); 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
+}
+
+/* Animaciones del Modal (Entrada) */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes modalSlideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(50px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Animaciones del Modal (Salida) */
+@keyframes modalFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes modalSlideOut {
+    from { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+    to { 
+        opacity: 0; 
+        transform: translateY(50px); 
+    }
+}

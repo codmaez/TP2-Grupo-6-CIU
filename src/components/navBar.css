@@ -1,0 +1,181 @@
+
+.profileNav {
+    width: 250px; /* Ancho fijo */
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    position: sticky; /* Queda fija en el lugar mientras scrolleas */
+    top: 0;
+    height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+    padding: 20px;
+    box-sizing: border-box; 
+ 
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Contenedor para los botones de navegación principales */
+.navGroup-top {
+    display: flex;
+    flex-direction: column;
+}
+/* Contenedor para los botones inferiores (Config, Logout) */
+.navGroup-bottom {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: auto; 
+}
+
+
+
+.navLogoLink {
+    display: block;
+    padding: 0 10px 10px 10px; 
+    margin-bottom: 15px; 
+    text-align: center;
+    border-bottom: 1px solid #f0f5fa;
+}
+.navLogo {
+    width: 100%; 
+    max-width: 150px; 
+    height: auto; 
+}
+
+
+.navButton {
+    display: flex; 
+    align-items: center;
+    gap: 20px; 
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #000; 
+    margin-bottom: 10px;
+    transition: background-color 0.2s, color 0.2s;
+    background-color: transparent; 
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+    border-left: none;
+}
+
+
+.navButton i {
+    font-size: 1.4rem; 
+    width: 25px; 
+    text-align: center;
+    color: #000; 
+    transition: color 0.2s;
+}
+
+/* Texto dentro de los botones */
+.navButton span {
+    font-weight: 600; 
+    font-size: 1rem;
+}
+
+
+.navButton.active span {
+    font-weight: 700; /* Negrita */
+}
+
+
+.navButton:hover {
+    background-color: #e8f5fe; 
+    color: #1da1f2;
+}
+.navButton:hover i,
+.navButton:hover span {
+    color: #1da1f2; 
+    font-weight: 700;
+}
+
+
+
+/* Botón "Publicar" */
+.navButton-publish:hover {
+    background-color: #e8f5fe;
+}
+.navButton-publish:hover i,
+.navButton-publish:hover span {
+    color: #1da1f2;
+}
+
+/* Botón "Cerrar Sesión"rojo */
+.navButton-logout:hover {
+    background-color: #ffebee; 
+}
+.navButton-logout i,
+.navButton-logout span {
+    color: #d32f2f; 
+    font-weight: 600;
+}
+
+.navButton-logout.active {
+    color: #d32f2f;
+    border-left: none; 
+    background-color: transparent; 
+}
+.navButton-logout.active i,
+.navButton-logout.active span {
+     color: #d32f2f;
+     font-weight: 600;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    /* Oculta el logo en pantallas chicas */
+    .navLogoLink {
+        display: none;
+    }
+
+    /* La barra lateral ahora es horizontal y va arriba */
+    .profileNav {
+        width: 100%;
+        height: auto;
+        position: static; 
+        flex-direction: row;
+        justify-content: space-around; 
+        border-bottom: 1px solid #ddd;
+        border-right: none;
+        padding: 5px;
+    }
+
+    .navGroup-top, .navGroup-bottom {
+        display: contents; 
+    }
+
+
+    .navButton {
+        flex-direction: column; 
+        font-size: 0.9em;
+        gap: 5px;
+        flex: 1; 
+        text-align: center;
+        padding: 8px 5px;
+        margin-bottom: 0; 
+        border-left: none;
+    }
+    .navButton:last-of-type {
+        margin-top: 0; 
+    }
+
+
+    .navButton.active {
+        border-left: none; 
+        border-bottom: 3px solid #1da1f2; 
+        padding-left: 5px; 
+        background-color: transparent; 
+        color: #000; 
+    }
+    .navButton.active i, .navButton.active span {
+        color: #000; 
+        font-weight: 700; 
+    }
+
+
+}
