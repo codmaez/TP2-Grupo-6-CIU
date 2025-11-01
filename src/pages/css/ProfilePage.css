@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     margin: 0;
@@ -6,7 +5,6 @@ body {
     background-color: #f0f5fa; 
     color: #333;
 }
-
 
 .profileLayout {
     display: flex;
@@ -28,6 +26,7 @@ body {
 }
 
 
+/* Perfil header */
 .profileHeader {
     display: flex;
     align-items: center;
@@ -47,7 +46,7 @@ body {
     object-fit: cover; 
 }
 
-
+/* Información de texto (NickName, Email, etc.) */
 .profileInfo {
     flex: 1;
 }
@@ -68,6 +67,7 @@ body {
     margin-top: 10px;
 }
 
+/* Boton de publicaciones */
 .profileFilters {
     display: flex;
     border-bottom: 1px solid #e6ecf0; 
@@ -83,15 +83,14 @@ body {
     border-bottom: 3px solid #1da1f2;
 }
 
-
+/* Posts */ 
 .postList {
     display: flex;
     flex-direction: column; 
-
     margin-top: 20px; 
 }
 
-
+/* Responsive */
 @media (max-width: 768px) {
     .profileLayout {
         flex-direction: column; 
