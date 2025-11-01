@@ -40,8 +40,8 @@ export function AuthProvider({ children }: AuthProviderProps){
             if (!userAccount){
                 alert('El usuario no existe');
             } else if (password === '123456'){
-                setUser(userAccount);
-                localStorage.setItem('user', JSON.stringify(userAccount));
+                setUser((prev) => ({ ...prev, username }));
+                localStorage.setItem('user', username);
             } else{
                 alert('Contraseña incorrecta');
             }
