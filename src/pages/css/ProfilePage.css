@@ -132,9 +132,9 @@ body {
 
 /* Estilo que se añade  al destacar */
 .postCard-highlighted {
-    border-color: #ffac33; /* Borde dorado */
+    border-color: #ffac33;
     background-color: #fffaf0; 
-    box-shadow: 0 4px 20px rgba(255, 172, 51, 0.4); /* Sombra dorada */
+    box-shadow: 0 4px 20px rgba(255, 172, 51, 0.4); 
     animation: highlight-pop-in 0.3s ease-out; /* Animación */
 }
 
@@ -145,7 +145,6 @@ body {
     line-height: 1.4;
     /* Para cortrar el texto en .. */
     display: -webkit-box;
-    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

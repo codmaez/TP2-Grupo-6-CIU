@@ -1,5 +1,5 @@
 import { useAuth, type AuthContextType } from "../context/AuthContext";
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import NavBar from '../components/navBar';
 

@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth, type AuthContextType } from "../context/AuthContext";
 import logo from '../assets/Logo2.png'; 
