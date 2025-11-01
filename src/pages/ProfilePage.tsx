@@ -1,13 +1,13 @@
 import { useAuth, type AuthContextType } from "../context/AuthContext";
 import { useState, useEffect } from 'react';
 
+
 import NavBar from '../components/navBar';
 
 import Post, { type PostType } from '../components/Post';
 
 
 import './css/ProfilePage.css'; 
-
 
 type UserProfile = {
     id: number;
@@ -18,12 +18,11 @@ type UserProfile = {
 };
 
 
-const DEFAULT_AVATAR = "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg";
+const avatarPerfil = "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg";
 
 
 
 export default function Profile() {
-    
 
     const auth: AuthContextType | null = useAuth();
     const [perfil, setPerfil] = useState<UserProfile | null>(null);
@@ -57,7 +56,7 @@ export default function Profile() {
 
                 setPerfil({
                     ...perfilData,
-                    avatarUrl: DEFAULT_AVATAR
+                    avatarUrl: avatarPerfil
                 });
 
                 setPosteos(posteosDelUsuario);
@@ -74,7 +73,6 @@ export default function Profile() {
         
     }, [userId]); 
 
-
     if (cargando) {
         return <div className="p-5 text-center">Cargando perfil...</div>;
     }
@@ -89,9 +87,8 @@ export default function Profile() {
     return (
         <div className="profileLayout">
             
-  
+
             <NavBar />
-            
 
             <main className="profileFeed">
                 
@@ -122,7 +119,7 @@ export default function Profile() {
                     {posteos.length === 0 ? (
                         <p className="p-4">No hay publicaciones para mostrar.</p>
                     ) : (
-  
+
                         posteos.map(posteo => (
                             <Post key={posteo.id} post={posteo} />
                         ))
@@ -130,7 +127,6 @@ export default function Profile() {
                 </div>
             </main>
 
-            
         </div>
     )
 }
