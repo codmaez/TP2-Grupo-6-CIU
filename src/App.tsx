@@ -9,6 +9,7 @@ import Profile from "./pages/ProfilePage";
 import Home from "./pages/HomePage";
 import Register from "./pages/RegisterPage";
 import PostDetails from './components/PostDetails';
+import Layout from './layout/layout';
 
 function App() {
 
@@ -16,15 +17,17 @@ function App() {
         <AuthProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/registrar" element={<Register />} />
-                    <Route path="/perfil" element={
-                        <PrivateRoute>
-                            <Profile />
-                        </PrivateRoute>
-                    } />
-                    <Route path="/post/:id" element={<PostDetails />} />
+                    <Route element={<Layout />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/perfil" element={
+                            <PrivateRoute>
+                                <Profile />
+                            </PrivateRoute>
+                        } />
+                        <Route path="/post/:id" element={<PostDetails />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
