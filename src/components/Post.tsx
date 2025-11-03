@@ -42,7 +42,7 @@ export default function Post({ post, detailed = false }: PostProps){
             <div className="d-flex">
                 <img className="border rounded-circle" style={{ width: '50px', height: '50px', maxWidth: '50px', maxHeight: '50px' }} src={profilePic} />
                 <div className="ms-2 my-auto">
-                    <div>Publicado por <Link to={`/perfil/${post.UserId}`}>{ post.User.nickName.charAt(0).toUpperCase() + post.User.nickName.slice(1) }</Link></div>
+                    <div>Publicado por <b>{ post.User.nickName.charAt(0).toUpperCase() + post.User.nickName.slice(1) }</b></div>
                     <div className="text-muted" style={{ fontSize: '70%' }}>{ `${ new Date(post.createdAt).toLocaleString('es-AR') }hs` }</div>
                 </div>
             </div>
