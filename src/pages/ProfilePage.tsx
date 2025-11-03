@@ -1,10 +1,8 @@
 import { useAuth, type AuthContextType } from "../context/AuthContext";
 import { useState, useEffect } from 'react';
-import NavBar from '../components/navBar';
 import Post, { type PostType } from '../components/Post'; 
 import './css/ProfilePage.css'; 
-
-const DEFAULT_AVATAR = "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg";
+import DEFAULT_AVATAR from '../assets/blank-profile.png';
 
 export default function Profile() {
     const auth: AuthContextType | null = useAuth();
@@ -47,12 +45,9 @@ export default function Profile() {
     }
     if (auth.loading || cargando) {
         return (
-            <div className="profileLayout">
-                <NavBar />
-                <main className="profileFeed">
-                    <div className="p-5 text-center">Cargando...</div>
-                </main>
-            </div>
+            <main className="profileFeed rounded m-4 mx-lg-auto">
+                <div className="p-5 text-center">Cargando...</div>
+            </main>
         );
     }
     if (error) {
@@ -60,12 +55,9 @@ export default function Profile() {
     }
     if (!auth.user) {  // Esto es para evitar que salga el error de auth.user puede ser null
         return (
-            <div className="profileLayout">
-                <NavBar />
-                <main className="profileFeed">
-                    <div className="p-5 text-center">No se pudo cargar el perfil del usuario.</div>
-                </main>
-            </div>
+            <main className="profileFeed rounded m-4 mx-lg-auto">
+                <div className="p-5 text-center">No se pudo cargar el perfil del usuario.</div>
+            </main>
         );
     }
  
@@ -73,44 +65,38 @@ export default function Profile() {
     
 
     return (
-        <div className="profileLayout">
-            
-            <NavBar />
-            
-            <main className="profileFeed">
+        <main className="profileFeed rounded m-4 mx-lg-auto">
 
-                <header className="profileHeader">
-                    <img 
-                        src={DEFAULT_AVATAR} 
-                        alt="Avatar" 
-                        className="profileAvatar"
-                    />
-                    <div className="profileInfo">
-                        <h1 className="profileNickName">{auth.user.nickName}</h1>
-                        <p className="profileEmail">{auth.user.email}</p>
-                        <p className="profileMeta">
-                            Se unió el: {new Date(auth.user.createdAt).toLocaleDateString()}
-                        </p>
-                    </div>
-                </header>
-
-                <div className="profileFilters">
-                    <button className="filterActive">
-                        Publicaciones
-                    </button>
+            <header className="profileHeader">
+                <img 
+                    src={DEFAULT_AVATAR} 
+                    alt="Avatar" 
+                    className="profileAvatar"
+                />
+                <div className="profileInfo">
+                    <h1 className="profileNickName">{auth.user.nickName}</h1>
+                    <p className="profileEmail">{auth.user.email}</p>
+                    <p className="profileMeta">
+                        Se unió el: {new Date(auth.user.createdAt).toLocaleDateString()}
+                    </p>
                 </div>
+            </header>
 
-                <div className="postList">
-                    {posteos.length === 0 ? (
-                        <p className="p-4">No hay publicaciones para mostrar.</p>
-                    ) : (
-                        posteos.map(posteo => (
-                            <Post key={posteo.id} post={posteo} />
-                        ))
-                    )}
-                </div>
-            </main>
-            
-        </div>
+            <div className="profileFilters">
+                <button className="filterActive">
+                    Publicaciones
+                </button>
+            </div>
+
+            <div className="postList">
+                {posteos.length === 0 ? (
+                    <p className="p-4">No hay publicaciones para mostrar.</p>
+                ) : (
+                    posteos.map(posteo => (
+                        <Post key={posteo.id} post={posteo} />
+                    ))
+                )}
+            </div>
+        </main>
     )
 }
