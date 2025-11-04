@@ -1,33 +1,26 @@
-
 .profileNav {
-    width: 250px; /* Ancho fijo */
+    width: 250px; 
     background-color: #fff;
     border-right: 1px solid #ddd;
-    position: sticky; /* Queda fija en el lugar mientras scrolleas */
+    position: sticky;
     top: 0;
-    height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+    height: 100vh; 
     padding: 20px;
     box-sizing: border-box; 
- 
     display: flex;
     flex-direction: column;
 }
 
 
-/* Contenedor para los botones de navegación principales */
 .navGroup-top {
     display: flex;
     flex-direction: column;
 }
-/* Contenedor para los botones inferiores (Config, Logout) */
 .navGroup-bottom {
     display: flex;
     flex-direction: column;
-
     margin-top: auto; 
 }
-
-
 
 .navLogoLink {
     display: block;
@@ -41,7 +34,6 @@
     max-width: 150px; 
     height: auto; 
 }
-
 
 .navButton {
     display: flex; 
@@ -61,7 +53,6 @@
     border-left: none;
 }
 
-
 .navButton i {
     font-size: 1.4rem; 
     width: 25px; 
@@ -70,17 +61,14 @@
     transition: color 0.2s;
 }
 
-/* Texto dentro de los botones */
 .navButton span {
     font-weight: 600; 
     font-size: 1rem;
 }
 
-
 .navButton.active span {
-    font-weight: 700; /* Negrita */
+    font-weight: 700;
 }
-
 
 .navButton:hover {
     background-color: #e8f5fe; 
@@ -92,9 +80,6 @@
     font-weight: 700;
 }
 
-
-
-/* Botón "Publicar" */
 .navButton-publish:hover {
     background-color: #e8f5fe;
 }
@@ -103,7 +88,6 @@
     color: #1da1f2;
 }
 
-/* Botón "Cerrar Sesión"rojo */
 .navButton-logout:hover {
     background-color: #ffebee; 
 }
@@ -125,57 +109,54 @@
 }
 
 
-/* Responsive */
+/* -------- NEW MOBILE MENU -------- */
+
+.mobileMenuBtn {
+  display: none;
+}
 
 @media (max-width: 768px) {
-    /* Oculta el logo en pantallas chicas */
-    .navLogoLink {
-        display: none;
-    }
 
-    /* La barra lateral ahora es horizontal y va arriba */
-    .profileNav {
-        width: 100%;
-        height: auto;
-        position: static; 
-        flex-direction: row;
-        justify-content: space-around; 
-        border-bottom: 1px solid #ddd;
-        border-right: none;
-        padding: 5px;
-    }
-
-    .navGroup-top, .navGroup-bottom {
-        display: contents; 
-    }
+.mobileMenuBtn {
+    display: block;
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 6000;
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
 
 
-    .navButton {
-        flex-direction: column; 
-        font-size: 0.9em;
-        gap: 5px;
-        flex: 1; 
-        text-align: center;
-        padding: 8px 5px;
-        margin-bottom: 0; 
-        border-left: none;
-    }
-    .navButton:last-of-type {
-        margin-top: 0; 
-    }
+  .profileNav {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid #ddd;
+    z-index: 5000;
+    transition: 0.25s ease;
+    width: 240px;
+    flex-direction: column;
+    padding: 20px;
+  }
 
+  .profileNav.open {
+    left: 0;
+  }
 
-    .navButton.active {
-        border-left: none; 
-        border-bottom: 3px solid #1da1f2; 
-        padding-left: 5px; 
-        background-color: transparent; 
-        color: #000; 
-    }
-    .navButton.active i, .navButton.active span {
-        color: #000; 
-        font-weight: 700; 
-    }
+  .navGroup-top, .navGroup-bottom {
+    display: flex;
+    flex-direction: column;
+  }
 
+  .navLogoLink {
+    display: block;
+  }
 
 }

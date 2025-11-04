@@ -1,38 +1,36 @@
 import { NavLink } from 'react-router-dom';
 import { useAuth, type AuthContextType } from "../context/AuthContext";
 import logo from '../assets/Logo2.png'; 
-
-
 import './navBar.css';
-
-
+import { useState } from "react";
 
 export default function NavBar() {
-    
 
     const auth: AuthContextType | null = useAuth();
-
+    const [open, setOpen] = useState(false);
 
     const getNavLinkClass = ({ isActive }: { isActive: boolean }) => 
         isActive ? "navButton active" : "navButton";
 
-
-    // hace que la página suba al tope.
     const handleNavClick = () => {
         window.scrollTo(0, 0);
+        setOpen(false);
     };
 
     return (
-        <aside className="profileNav">
+      <>
+        {/* botón hamburguesa SOLO mobile */}
+        <button className="mobileMenuBtn" onClick={() => setOpen(!open)}>
+          <i className="bi bi-list"></i>
+        </button>
+
+        <aside className={`profileNav ${open ? "open" : ""}`}>
             
-            {/*Logo*/}
             <NavLink to="/" className="navLogoLink" onClick={handleNavClick}>
                 <img src={logo} alt="Logo de la App" className="navLogo" />
             </NavLink>
 
-
             <div className="navGroup-top">
-                
 
                 <NavLink to="/" className={getNavLinkClass} end onClick={handleNavClick}>
                     <i className="bi bi-house-door"></i> 
@@ -44,7 +42,6 @@ export default function NavBar() {
                     <span>Perfil</span>
                 </NavLink>
 
-                {/* Botón "Publicar" para cuando se implemente el modal*/}
                 <NavLink to="/newPost" className="navButton navButton-publish" onClick={(e) => e.preventDefault()}>
                     <i className="bi bi-plus-square"></i> 
                     <span>Publicar</span>
@@ -52,15 +49,14 @@ export default function NavBar() {
 
             </div>
 
-            {/* C. Grupo Inferior (Botón de Salir) */}
             <div className="navGroup-bottom">
                 
-                {/* Botón para cerrar la sesión del usuario */}
-                <button className="navButton navButton-logout" onClick={auth?.logout}>
+                <button className="navButton navButton-logout" onClick={() => { auth?.logout(); setOpen(false) }}>
                     <i className="bi bi-box-arrow-right"></i> 
                     <span>Cerrar Sesión</span>
                 </button>
             </div>
         </aside>
+      </>
     );
 }
