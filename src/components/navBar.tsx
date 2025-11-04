@@ -45,7 +45,7 @@ export default function NavBar() {
                 </NavLink>
 
                 {/* Botón "Publicar" para cuando se implemente el modal*/}
-                <NavLink to="#" className="navButton navButton-publish" onClick={(e) => e.preventDefault()}>
+                <NavLink to="/newPost" className="navButton navButton-publish" onClick={(e) => e.preventDefault()}>
                     <i className="bi bi-plus-square"></i> 
                     <span>Publicar</span>
                 </NavLink>
