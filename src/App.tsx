@@ -10,6 +10,7 @@ import Home from "./pages/HomePage";
 import Register from "./pages/RegisterPage";
 import PostDetails from './components/PostDetails';
 import Layout from './layout/layout';
+import NewPost from './components/NewPost';
 
 function App() {
 
@@ -21,6 +22,11 @@ function App() {
                     <Route path="/registrar" element={<Register />} />
                     <Route element={<Layout />}>
                         <Route path="/" element={<Home />} />
+                        <Route path="/newPost" element={
+                            <PrivateRoute>
+                                <NewPost />
+                            </PrivateRoute>
+                        } />
                         <Route path="/perfil" element={
                             <PrivateRoute>
                                 <Profile />
