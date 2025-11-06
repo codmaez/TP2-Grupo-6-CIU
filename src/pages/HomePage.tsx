@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Post from "../components/Post";
 import type { PostType } from "../components/Post";
-import { Link } from "react-router-dom";
 import "./css/homePage.css";
 
 interface Tag {
@@ -85,7 +84,7 @@ export default function HomePage() {
 
   return (
     <div className="container py-4 px-3 px-md-5">
-      {/* 🔹 Banner principal */}
+      {/* Banner */}
       <div className="mb-4 text-center">
         <div
           className="p-4 rounded-4 shadow-sm text-white"
@@ -103,7 +102,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 🔹 Filtros de etiquetas */}
+      {/* Filtros */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
         <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
           <button
@@ -132,10 +131,9 @@ export default function HomePage() {
             </button>
           ))}
         </div>
-
       </div>
 
-      {/* 🔹 Feed */}
+      {/* Feed */}
       {loading ? (
         <div className="text-center py-5">
           <div className="spinner-border" role="status" aria-hidden="true" />
@@ -160,19 +158,13 @@ export default function HomePage() {
                       } visibles`
                     : "Comentarios: -"}
                 </div>
-                <Link
-                  to={`/post/${post.id}`}
-                  className="btn btn-sm btn-outline-primary rounded-pill px-3"
-                >
-                  Ver más
-                </Link>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* 🔹 Footer */}
+      {/* Footer */}
       <footer className="mt-5 text-center text-muted small py-3 border-top">
         <p className="mb-0">
           <b>UnaHur Anti-Social Net</b> — la red donde la gente se conecta sin tanto contacto.
