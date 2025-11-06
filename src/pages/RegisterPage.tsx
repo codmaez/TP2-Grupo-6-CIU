@@ -20,6 +20,16 @@ export default function RegisterPage(){
             return;
         }
 
+        if (nickName.length < 3) {
+            setError('El NickName debe tener al menos 3 caracteres');
+            return;
+        }
+
+        if (password.length < 6) {
+            setError('La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+
         setLoading(true);
         setError(null);
 
