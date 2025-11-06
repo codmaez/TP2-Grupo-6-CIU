@@ -38,7 +38,7 @@ export default function Post({ post, detailed = false }: PostProps){
     const navigate = useNavigate();
 
     return(
-        <div className="container-fluid bg-white rounded border border-secundary p-3 m-1 w-100 shadow">
+        <div className={`container-fluid bg-white w-100 ${detailed ? ' p-3 m-1 rounded border border-secundary shadow' : ''}`}>
             <div className="d-flex">
                 <img className="border rounded-circle" style={{ width: '50px', height: '50px', maxWidth: '50px', maxHeight: '50px' }} src={profilePic} />
                 <div className="ms-2 my-auto">
@@ -51,10 +51,9 @@ export default function Post({ post, detailed = false }: PostProps){
             <PostGallery postId={post.id} detailed={detailed} />
             {/* Etiquetas */}
             <div className='mt-2 d-inline-block text-muted'>
-                <b>Etiquetas:</b>
                 {
                     Array.isArray(post.Tags) && post.Tags.map((tag, i) => (
-                        <p className='d-inline-block px-1 mb-0' key={i}>{ `${tag.name}${i < post.Tags.length -1 ? ',' : ''}` }</p>
+                        <p className='d-inline-block px-1 mb-0 rounded mt-2 text-primary' key={i}>{ `#${tag.name}${i < post.Tags.length -1 ? ',' : ''}` }</p>
                     ))
                 }
             </div>
