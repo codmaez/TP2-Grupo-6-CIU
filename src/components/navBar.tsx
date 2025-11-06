@@ -25,7 +25,8 @@ export default function NavBar() {
                 overflowX: 'hidden',
                 zIndex: 10,
                 padding: pantallaCelullar ? '0.25rem' : '0.75rem',
-                boxShadow: '0 0 5px rgba(0,0,0,0.1)'
+                boxShadow: '0 0 5px rgba(0,0,0,0.1)',
+                minWidth: '200px'
             }}
         >
             {/* Logo visible solo en pantallas medianas o grandes */}
@@ -44,7 +45,7 @@ export default function NavBar() {
 
             {/* Contenedor de enlaces principales */}
             <div 
-                className={`d-flex ${pantallaCelullar ? 'flex-row justify-content-around w-100' : 'flex-column w-100 align-items-start'}`}
+                className={`d-flex ${width < 765 ? 'flex-row justify-content-around w-100' : 'flex-column w-100 align-items-start'}`}
                 style={{ flexWrap: 'nowrap' }}
             >
 
