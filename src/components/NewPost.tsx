@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth, type AuthContextType } from "../context/AuthContext"
+import { useNavigate } from "react-router-dom";
 
 export default function NewPost(){
     const auth: AuthContextType | null = useAuth();
@@ -7,6 +8,7 @@ export default function NewPost(){
     const [inputImage, setInputImage]=useState<string>('');
     const [images, setImages]=useState<string[]>([]);
     const [labels, setLabels]=useState<string[]>([]);
+    const navigate = useNavigate();
     
     const addImage = ()=>{
         setImages((prev)=>[...prev, inputImage]);
@@ -27,8 +29,23 @@ export default function NewPost(){
                 throw new Error("Ocurrio un error")
             }
             else {
-                // subir array de imagenes
-            }
+                if (images.length > 0) {
+                    images.map(async (image)=>{
+                        const res = await fetch("http://localhost:3001/postimages", {
+                            method:"POST", 
+                            headers: {"Content-Type": "application/json"},
+                            body: JSON.stringify({
+                                url:image,
+                                postId:auth?.user?.id
+                            })
+                        })
+                        if (!res.ok) {
+                            throw new Error(`Ocurrio un error al subir imagen con url ${image}`)
+                        }
+                    })
+                } 
+            } 
+            navigate("/");
         } catch(err: unknown){
             if(err instanceof Error){
                 alert(`Ocurrio un error al publicar el post: ${err.message}`)
