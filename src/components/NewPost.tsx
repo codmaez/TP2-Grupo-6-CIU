@@ -1,14 +1,37 @@
 import { useEffect, useState } from "react";
 import { useAuth, type AuthContextType } from "../context/AuthContext"
 
+interface Tag {
+    id: number, 
+    name: string,
+    createdAt: string, 
+    updatedAt: string 
+}
+
 export default function NewPost(){
     const auth: AuthContextType | null = useAuth();
     const [width, setWidth] = useState(window.innerWidth);
-    const [description, setDescription]=useState<string>('');
-    const [inputImage, setInputImage]=useState<string>('');
-    const [images, setImages]=useState<string[]>([]);
-    const [labels, setLabels]=useState<string[]>([]);
+    const [description, setDescription] = useState<string>('');
+    const [inputImage, setInputImage] = useState<string>('');
+    const [images, setImages] = useState<string[]>([]);
+    const [labels, setLabels] = useState<Tag[]>([]);
+    const [selectedLabelsIds, setSelectedLabelsIds] = useState<number[]>([]);
     
+    const getLabels=async ()=>{
+        try {
+            const res = await fetch("http://localhost:3001/tags");
+            const data = await res.json();
+            setLabels(data);
+        }catch (err:unknown){
+            if(err instanceof Error){
+                alert(`Ocurrio un error al obtener las etiquetas ${err.message}`)
+            }
+            else {
+                alert(`Ocurrio un error desconocido al obtener las etiquetas`)
+            }
+        }
+    }
+
     const addImage = ()=>{
         if(inputImage.trim().length > 0){
             setImages((prev)=>[...prev, inputImage]);
@@ -27,7 +50,7 @@ export default function NewPost(){
                     body: JSON.stringify({
                         description: description,
                         userId: auth?.user?.id,
-                        tagIds: labels
+                        tagIds: selectedLabelsIds
                     })
                 })
                 if (!res.ok) {
@@ -70,10 +93,24 @@ export default function NewPost(){
         }
     }
     
-    useEffect(() => {
+    const calcWidth = ()=> {
         const handleResize = () => setWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }
+
+    const handleSelectedLabel = (label:Tag)=> {
+        if(selectedLabelsIds.includes(label.id)){
+            setSelectedLabelsIds(selectedLabelsIds.filter(id => id !== label.id))
+        }
+        else{
+            setSelectedLabelsIds([...selectedLabelsIds, label.id])
+        }
+    }
+
+    useEffect(() => {
+        calcWidth();
+        getLabels();
     }, []);
 
     return (
@@ -95,8 +132,17 @@ export default function NewPost(){
                 </div>
             </div>
             <div className="d-flex mt-3 p-3 border rounded">
-                <label className="position-absolute bg-white px-1" style={{transform: "translateY(-30px)"}}>Etiquetas</label>
-                <input type="text" value={labels?.join(",")} onChange={(e)=>setLabels(e.target.value.split(",").map(label=>label.trim()))} placeholder="Ingrese etiquetas separadas por comas (ej: arte, unahur)" className="mt-2 border rounded p-2"/>
+                <label className="position-absolute bg-white px-1" style={{transform: "translateY(-30px)"}}>Seleccione etiquetas</label>
+                {
+                    Array.isArray(labels) && labels.map((label, i) => (
+                        <div 
+                            key={i}  
+                            onClick={() => handleSelectedLabel(label)}
+                            className={`border rounded me-2 p-1 ${selectedLabelsIds.includes(label.id) ? "bg-primary text-white" : "bg-white"}`}
+                            style={{cursor:"pointer" }}
+                        >{label.name}</div>)
+                    )
+                }
             </div>
             <div className="d-flex justify-content-center">
                 <button onClick={submitPost} className="btn btn-primary px-5 mt-3">Publicar</button>
