@@ -133,11 +133,6 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="text-center text-md-end">
-          <Link to="/perfil" className="btn btn-outline-secondary btn-sm rounded-pill">
-            <i className="bi bi-person-circle me-1"></i> Mi perfil
-          </Link>
-        </div>
       </div>
 
       {/* 🔹 Feed */}
