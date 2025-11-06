@@ -45,7 +45,7 @@ export default function PostGallery({ postId, detailed }: PostGalleryProps){
                         <img
                             src={postImgs[imgMain]?.url}
                             className='border border-secondary p-1 rounded img-fluid mb-2 mb-md-0 me-md-2'
-                            style={{ flex: 1, height: '500px', objectFit: 'cover' }}
+                            style={{ flex: 1, objectFit: 'cover' }}
                         />
                         <div className='d-flex gap-2 flex-row flex-md-column' style={{ maxHeight: '500px', scrollbarWidth: 'thin', overflowY: 'auto', overflowX: 'auto' }}>
                             {
