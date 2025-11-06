@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth, type AuthContextType } from "../context/AuthContext"
 
 export default function NewPost(){
     const auth: AuthContextType | null = useAuth();
+    const [width, setWidth] = useState(window.innerWidth);
     const [description, setDescription]=useState<string>('');
     const [inputImage, setInputImage]=useState<string>('');
     const [images, setImages]=useState<string[]>([]);
@@ -68,10 +69,16 @@ export default function NewPost(){
             alert('La descripción del post no puede estar vacía.')
         }
     }
+    
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
-        <div className="bg-white rounded p-4 m-4 w-100">
-            <p className="text-primary fw-bold">Nueva Publicación</p> 
+        <div className={`bg-white rounded p-4 m-4 d-flex flex-column align-content-center mx-4 ${ width < 759 ? 'mx-lg-auto' : 'w-100 mx-auto'}`} style={{ maxWidth: '1200px' }}>
+            <p className="text-primary fw-bold">Nueva Publicación</p>
             <textarea className="w-100 rounded p-2" value={description} onChange={(e)=>setDescription(e.target.value)} placeholder="Descripción" required/>
             <div className="d-flex flex-column mt-3 p-3 border rounded">
                 <label className="position-absolute bg-white px-1" style={{transform: "translateY(-30px)"}}>Imagen</label>
