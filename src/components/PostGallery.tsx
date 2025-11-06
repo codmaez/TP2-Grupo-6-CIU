@@ -34,6 +34,8 @@ export default function PostGallery({ postId, detailed }: PostGalleryProps){
     useEffect(() => {
         getImages();
     }, [])
+
+    if (postImgs.length === 0) return <></>
     
     return(
         <>

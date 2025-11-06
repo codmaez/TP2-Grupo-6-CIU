@@ -1,66 +1,45 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth, type AuthContextType } from "../context/AuthContext";
+import { useEffect, useState } from 'react';
 import logo from '../assets/Logo2.png'; 
 
-
-import './navBar.css';
-
-
-
-export default function NavBar() {
-    
-
+export default function NavBar(){
     const auth: AuthContextType | null = useAuth();
+    const [selected, setSelected] = useState<number>(0);
+    const [width, setWidth] = useState(window.innerWidth);
 
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-    const getNavLinkClass = ({ isActive }: { isActive: boolean }) => 
-        isActive ? "navButton active" : "navButton";
-
-
-    // hace que la página suba al tope.
-    const handleNavClick = () => {
-        window.scrollTo(0, 0);
-    };
-
-    return (
-        <aside className="profileNav">
-            
-            {/*Logo*/}
-            <NavLink to="/" className="navLogoLink" onClick={handleNavClick}>
-                <img src={logo} alt="Logo de la App" className="navLogo" />
-            </NavLink>
-
-
-            <div className="navGroup-top">
-                
-
-                <NavLink to="/" className={getNavLinkClass} end onClick={handleNavClick}>
+    return(
+        <div className='d-flex flex-row flex-md-column vh-lg-100 position-sticky top-0 justify-content-center p-2 bg-white' style={{ height: width > 765 ? '100vh' : '' }}>
+            <div className='d-none d-md-flex justify-content-center'>
+                <Link to='/'>
+                    <img src={logo} alt="Logo UNaHur Anti-Social Net" className="w-100 h-auto" style={{ maxWidth: '150px' }} />
+                </Link>
+            </div>
+            <hr/>
+            <div className='d-flex flex-row flex-md-column'>
+                <Link to='/' className='d-flex flex-column flex-md-row p-4 rounded m-1 align-items-center text-decoration-none' style={{ borderBottom: selected == 0 ? '2px solid #1da1f2' : '', backgroundColor: selected == 0 ? '#1da0f210' : '' }} onClick={() => setSelected(0)}>
                     <i className="bi bi-house-door"></i> 
-                    <span>Inicio</span>
-                </NavLink>
-                
-                <NavLink to="/perfil" className={getNavLinkClass} onClick={handleNavClick}>
-                    <i className="bi bi-person-fill"></i> 
-                    <span>Perfil</span>
-                </NavLink>
-
-                {/* Botón "Publicar" para cuando se implemente el modal*/}
-                <NavLink to="/newPost" className="navButton navButton-publish" onClick={(e) => e.preventDefault()}>
-                    <i className="bi bi-plus-square"></i> 
-                    <span>Publicar</span>
-                </NavLink>
-
+                    <span className='ms-1'>Inicio</span>
+                </Link>
+                <Link to={`/perfil`} className='d-flex flex-column flex-md-row p-4 rounded m-1 align-items-center text-decoration-none' style={{ borderBottom: selected == 1 ? '2px solid #1da1f2' : '', backgroundColor: selected == 1 ? '#1da0f210' : '' }} onClick={() => setSelected(1)}>
+                    <i className="bi bi-person-fill"/>
+                    <span className='ms-1'>Perfil</span>
+                </Link>
+                <Link to='/newPost' className='d-flex flex-column flex-md-row p-4 rounded m-1 align-items-center text-decoration-none' style={{ borderBottom: selected == 2 ? '2px solid #1da1f2' : '', backgroundColor: selected == 2 ? '#1da0f210' : '' }} onClick={() => setSelected(2)}>
+                    <i className="bi bi-plus-square"/>
+                    <span className='ms-1'>Publicar</span>
+                </Link>
             </div>
-
-            {/* C. Grupo Inferior (Botón de Salir) */}
-            <div className="navGroup-bottom">
-                
-                {/* Botón para cerrar la sesión del usuario */}
-                <button className="navButton navButton-logout" onClick={auth?.logout}>
-                    <i className="bi bi-box-arrow-right"></i> 
-                    <span>Cerrar Sesión</span>
-                </button>
-            </div>
-        </aside>
-    );
+            <button onClick={() => auth?.logout()} className='d-flex flex-column flex-md-row p-4 rounded bg-white m-1 align-items-center border-0 mt-auto' style={{ color: 'red' }}>
+                <i className="bi bi-box-arrow-right"/>
+                <span className='ms-1'>Cerrar Sesión</span>
+            </button>
+        </div>
+    )
 }

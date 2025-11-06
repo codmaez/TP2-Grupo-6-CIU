@@ -1,0 +1,52 @@
+/* ---- HOME PAGE STYLE CLEAN ---- */
+
+/* que el scroll lateral del body no aparezca en mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* transición suave global */
+* {
+  transition: 0.18s ease-in-out;
+}
+
+/* pills más suaves */
+.btn-outline-primary {
+  border-width: 2px !important;
+  border-radius: 999px !important;
+}
+
+/* para que los tags queden más modernos */
+.btn-primary {
+  border-radius: 999px !important;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+}
+
+/* cards del feed */
+.feed-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.07);
+}
+
+/* al pasar el mouse sobre card */
+.feed-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 14px rgba(0,0,0,0.12);
+}
+
+/* banner para mobile */
+@media (max-width: 768px) {
+  .banner-title {
+    font-size: 1.65rem !important;
+  }
+  .banner-sub {
+    font-size: .95rem !important;
+  }
+}
+
+/* smoothing links */
+a {
+  text-decoration: none !important;
+}
