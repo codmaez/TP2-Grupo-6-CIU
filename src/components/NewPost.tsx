@@ -18,52 +18,55 @@ export default function NewPost(){
     }
 
     const submitPost = async ()=>{
-        try {
-            const res = await fetch("http://localhost:3001/posts", {
-                method:"POST", 
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    description: description,
-                    userId: auth?.user?.id,
-                    tagIds: labels
-                })
-            })
-            if (!res.ok) {
-                console.log(res);
-                throw new Error(`Ocurrio un error al subir post ${res.status} ${res.statusText}`);
-            }
-            else {
-                const postData = await res.json();
-                if (images.length > 0) {
-                    images.map(async (image)=>{
-                        const res = await fetch("http://localhost:3001/postimages", {
-                            method:"POST", 
-                            headers: {"Content-Type": "application/json"},
-                            body: JSON.stringify({
-                                url: image,
-                                postId: postData.id
-                            })
-                        })
-                        if (!res.ok) {
-                            console.log(res);
-                            throw new Error(`Ocurrio un error al subir imagen con url ${image} ${res.status} ${res.statusText}`)
-                        }
+        if (description.trim().length > 0){
+            try {
+                const res = await fetch("http://localhost:3001/posts", {
+                    method:"POST", 
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        description: description,
+                        userId: auth?.user?.id,
+                        tagIds: labels
                     })
-                } 
+                })
+                if (!res.ok) {
+                    console.log(res);
+                    throw new Error(`Ocurrio un error al subir post ${res.status} ${res.statusText}`);
+                }
+                else {
+                    const postData = await res.json();
+                    if (images.length > 0) {
+                        images.map(async (image)=>{
+                            const res = await fetch("http://localhost:3001/postimages", {
+                                method:"POST", 
+                                headers: {"Content-Type": "application/json"},
+                                body: JSON.stringify({
+                                    url: image,
+                                    postId: postData.id
+                                })
+                            })
+                            if (!res.ok) {
+                                console.log(res);
+                                throw new Error(`Ocurrio un error al subir imagen con url ${image} ${res.status} ${res.statusText}`)
+                            }
+                        })
+                    } 
+                }
+                alert('Post agregado!')
+                setDescription('');
+                setImages([]);
+                setLabels([]);
+            } catch(err: unknown){
+                if(err instanceof Error){
+                    alert(`Ocurrio un error al publicar el post: ${err.message}`)
+                }
+                else {
+                    alert (`ocurrio un error desconocido`)
+                }
             }
-            alert('Post agregado!')
-            setDescription('');
-            setImages([]);
-            setLabels([]);
-        } catch(err: unknown){
-            if(err instanceof Error){
-                alert(`Ocurrio un error al publicar el post: ${err.message}`)
-            }
-            else {
-                alert (`ocurrio un error desconocido`)
-            }
+        } else{
+            alert('La descripción del post no puede estar vacía.')
         }
-    
     }
 
     return (
