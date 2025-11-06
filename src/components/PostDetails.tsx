@@ -27,7 +27,7 @@ export default function PostDetails(){
     }, [])
     
     return(
-        <div className='d-flex justify-content-center'>
+        <div className='d-flex justify-content-center mx-4 w-100' style={{ height: 'fit-content' }}>
             {
                 post ?
                     <div className='d-flex w-100 pt-5' style={{ maxWidth: '1200px' }}>
