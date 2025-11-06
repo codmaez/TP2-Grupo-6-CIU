@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, type AuthContextType } from "../context/AuthContext";
 import { useEffect, useState } from 'react';
 import logo from '../assets/Logo2.png'; 
@@ -7,6 +7,7 @@ export default function NavBar() {
     const auth: AuthContextType | null = useAuth();
     const [selected, setSelected] = useState<number>(0);
     const [width, setWidth] = useState(window.innerWidth);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
@@ -146,35 +147,65 @@ export default function NavBar() {
                 </Link>
             </div>
 
-            {/* BOTÓN CERRAR SESIÓN */}
-            <button 
-                onClick={() => auth?.logout()} 
-                className={`d-flex ${pantallaCelullar ? 'flex-column' : 'flex-row'} align-items-center justify-content-center rounded bg-white m-1 border-0 mt-auto w-100`} 
-                style={{ 
-                    color: 'red',
-                    padding: pantallaCelullar ? '0.5rem' : '0.75rem 1rem',
-                    textAlign: 'center',
-                    transition: 'all 0.2s ease'
-                }}
-            >
-                <i 
-                    className="bi bi-box-arrow-right"
-                    style={{
-                        fontSize: pantallaCelullar ? '1.3rem' : '1.2rem',
-                        marginRight: !pantallaCelullar ? '8px' : '0',
-                        marginBottom: pantallaCelullar ? '4px' : '0'
-                    }}
-                />
-                <span 
-                    className="fw-semibold"
-                    style={{
-                        fontSize: pantallaCelullar ? '0.75rem' : '1rem',
-                        color: 'red'
-                    }}
-                >
-                    Cerrar Sesión
-                </span>
-            </button>
+            {/* BOTÓN CERRAR SESIÓN / INICIAR */}
+            {
+                auth && auth?.user ?
+                    <button 
+                        onClick={() => auth?.logout()} 
+                        className={`d-flex ${pantallaCelullar ? 'flex-column' : 'flex-row'} align-items-center justify-content-center rounded bg-white m-1 border-0 mt-auto w-100`} 
+                        style={{ 
+                            color: 'red',
+                            padding: pantallaCelullar ? '0.5rem' : '0.75rem 1rem',
+                            textAlign: 'center',
+                            transition: 'all 0.2s ease'
+                        }}
+                    >
+                        <i 
+                            className="bi bi-box-arrow-right"
+                            style={{
+                                fontSize: pantallaCelullar ? '1.3rem' : '1.2rem',
+                                marginRight: !pantallaCelullar ? '8px' : '0',
+                                marginBottom: pantallaCelullar ? '4px' : '0'
+                            }}
+                        />
+                        <span 
+                            className="fw-semibold"
+                            style={{
+                                fontSize: pantallaCelullar ? '0.75rem' : '1rem',
+                                color: 'red'
+                            }}
+                        >
+                            Cerrar Sesión
+                        </span>
+                    </button>
+                :
+                    <button 
+                        onClick={() => navigate('/login')} 
+                        className={`d-flex text-primary ${pantallaCelullar ? 'flex-column' : 'flex-row'} align-items-center justify-content-center rounded bg-white m-1 border-0 mt-auto w-100`} 
+                        style={{
+                            padding: pantallaCelullar ? '0.5rem' : '0.75rem 1rem',
+                            textAlign: 'center',
+                            transition: 'all 0.2s ease'
+                        }}
+                    >
+                        <i 
+                            className="bi bi-box-arrow-right"
+                            style={{
+                                fontSize: pantallaCelullar ? '1.3rem' : '1.2rem',
+                                marginRight: !pantallaCelullar ? '8px' : '0',
+                                marginBottom: pantallaCelullar ? '4px' : '0'
+                            }}
+                        />
+                        <span 
+                            className="fw-semibold"
+                            style={{
+                                fontSize: pantallaCelullar ? '0.75rem' : '1rem',
+                            }}
+                        >
+                            Iniciar Sesión
+                        </span>
+                    </button>
+            }
         </div>
     );
 }
