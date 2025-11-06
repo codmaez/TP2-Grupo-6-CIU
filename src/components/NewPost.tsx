@@ -114,7 +114,7 @@ export default function NewPost(){
     }, []);
 
     return (
-        <div className={`bg-white rounded p-4 m-4 d-flex flex-column align-content-center mx-4 ${ width < 759 ? 'mx-lg-auto' : 'w-100 mx-auto'}`} style={{ maxWidth: '1200px' }}>
+        <div className={`bg-white rounded p-4 m-4 d-flex flex-column align-content-center mx-4 shadow ${ width < 759 ? 'mx-lg-auto' : 'w-100 mx-auto'}`} style={{ height: 'fit-content', maxWidth: '1200px' }}>
             <p className="text-primary fw-bold">Nueva Publicación</p>
             <textarea className="w-100 rounded p-2" value={description} onChange={(e)=>setDescription(e.target.value)} placeholder="Descripción" required/>
             <div className="d-flex flex-column mt-3 p-3 border rounded">
